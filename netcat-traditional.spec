@@ -1,26 +1,32 @@
-Name:           nc
+%define real_name nc
+
+Name:           netcat-traditional
 Version:        1.10
-Release:        %mkrel 29
+Release:        %mkrel 30
 Summary:        Reads and writes data across network connections using TCP or UDP
 License:        Public Domain
 Group:          Networking/Other
 URL:            http://www.vulnwatch.org/netcat/
 Source0:        http://www.vulnwatch.org/netcat/nc110.tgz
-Source1:        %{name}.1
-Patch0:         %{name}-%{version}-arm.patch
-Patch1:         %{name}-%{version}-resolv.patch
-Patch2:         %{name}-%{version}-posix_setjmp.patch
-Patch3:         %{name}-%{version}-nopunt.patch
-Patch4:         %{name}-%{version}-nosleep.patch
-Patch5:         %{name}-%{version}-single_verbose.patch
-Patch6:         %{name}-%{version}-use_getservbyport.patch
-Patch7:         %{name}-%{version}-read_overflow.patch
-Patch8:         %{name}-%{version}-inet_aton.patch
-Patch9:         %{name}-%{version}-udp_broadcast.patch
-Patch10:        %{name}-%{version}-quit.patch
-Patch11:	nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
-Patch12:	nc-1.10-LDFLAGS.diff
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+Source1:        %{real_name}.1
+Patch0:         %{real_name}-%{version}-arm.patch
+Patch1:         %{real_name}-%{version}-resolv.patch
+Patch2:         %{real_name}-%{version}-posix_setjmp.patch
+Patch3:         %{real_name}-%{version}-nopunt.patch
+Patch4:         %{real_name}-%{version}-nosleep.patch
+Patch5:         %{real_name}-%{version}-single_verbose.patch
+Patch6:         %{real_name}-%{version}-use_getservbyport.patch
+Patch7:         %{real_name}-%{version}-read_overflow.patch
+Patch8:         %{real_name}-%{version}-inet_aton.patch
+Patch9:         %{real_name}-%{version}-udp_broadcast.patch
+Patch10:        %{real_name}-%{version}-quit.patch
+Patch11:        nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
+Patch12:        nc-1.10-LDFLAGS.diff
+Obsoletes:      nc
+Provides:       netcat
+Conflicts:      netcat-openbsd
+Conflicts:      netcat-gnu
+BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
 The nc package contains Netcat (the program is now netcat), a simple utility
@@ -68,20 +74,19 @@ probably only be installed as 'nc', so keep this in mind when writing scripts.
 %install
 %{__rm} -rf %{buildroot}
 %{__mkdir_p} %{buildroot}%{_bindir}
-%{__cp} -a %{name} %{buildroot}%{_bindir}
-#(cd %{buildroot}%{_bindir} && %{__ln_s} %{name} netcat)
+%{__cp} -a %{real_name} %{buildroot}%{_bindir}
+(cd %{buildroot}%{_bindir} && %{__ln_s} %{real_name} netcat)
 %{__mkdir_p} %{buildroot}%{_mandir}/man1
 %{__cp} -a %{SOURCE1} %{buildroot}%{_mandir}/man1/nc.1
-#(cd %{buildroot}%{_mandir}/man1 && %{__ln_s} %{name}.1 netcat.1)
+(cd %{buildroot}%{_mandir}/man1 && %{__ln_s} %{real_name}.1 netcat.1)
 
 %clean
 %{__rm} -rf %{buildroot}
 
 %files
-%defattr(0644,root,root,0755)
+%defattr(-,root,root)
 %doc README Changelog scripts
-%attr(0755,root,root) %{_bindir}/nc
-#%{_bindir}/netcat
+%{_bindir}/nc
+%{_bindir}/netcat
 %{_mandir}/man1/nc.1*
-#%{_mandir}/man1/netcat.1*
-
+%{_mandir}/man1/netcat.1*
