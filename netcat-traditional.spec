@@ -2,7 +2,7 @@
 
 Name:           netcat-traditional
 Version:        1.10
-Release:        %mkrel 31
+Release:        %mkrel 32
 Summary:        Reads and writes data across network connections using TCP or UDP
 License:        Public Domain
 Group:          Networking/Other
@@ -23,8 +23,8 @@ Patch10:        %{real_name}-%{version}-quit.patch
 Patch11:        nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
 Patch12:        nc-1.10-LDFLAGS.diff
 Obsoletes:      nc
-Conflicts:      netcat <= 0.7.1-4mdv
-Provides:       netcat
+Conflicts:      netcat < 1.0
+Provides:       netcat = 1.0
 Conflicts:      netcat-openbsd
 Conflicts:      netcat-gnu
 BuildRoot:      %{_tmppath}/%{name}-%{version}
