@@ -2,26 +2,36 @@
 
 Name:           netcat-traditional
 Version:        1.10
-Release:        %mkrel 34
+Release:        %mkrel 35
 Summary:        Reads and writes data across network connections using TCP or UDP
 License:        Public Domain
 Group:          Networking/Other
-URL:            http://www.vulnwatch.org/netcat/
-Source0:        http://www.vulnwatch.org/netcat/nc110.tgz
+URL:            http://nc110.sourceforge.net/
+Source0:        http://sourceforge.net/projects/nc110/files/unix%20netcat%201.10%20by%20_Hobbit_/%5BUnnamed%20release%5D/nc110.tgz
 Source1:        %{real_name}.1
-Patch0:         %{real_name}-%{version}-arm.patch
-Patch1:         %{real_name}-%{version}-resolv.patch
-Patch2:         %{real_name}-%{version}-posix_setjmp.patch
-Patch3:         %{real_name}-%{version}-nopunt.patch
-Patch4:         %{real_name}-%{version}-nosleep.patch
-Patch5:         %{real_name}-%{version}-single_verbose.patch
-Patch6:         %{real_name}-%{version}-use_getservbyport.patch
-Patch7:         %{real_name}-%{version}-read_overflow.patch
-Patch8:         %{real_name}-%{version}-inet_aton.patch
-Patch9:         %{real_name}-%{version}-udp_broadcast.patch
-Patch10:        %{real_name}-%{version}-quit.patch
-Patch11:        nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
-Patch12:        nc-1.10-LDFLAGS.diff
+Patch0:         unstripped.patch
+Patch1:         glibc-resolv-h.patch
+Patch2:         arm-timer.patch
+Patch3:         posix-setjmp.patch
+Patch4:         no-sleep-punt.patch
+Patch5:         single-verbose.patch
+Patch6:         use-getservbyport.patch
+Patch7:         read-overflow.patch
+Patch8:         inet-aton.patch     
+Patch9:         udp-broadcast.patch
+Patch10:        quit.patch
+Patch11:        dash-port.patch
+Patch12:        sh-c.patch
+Patch13:        tos.patch
+Patch14:        rservice-buf.patch      
+Patch15:        so-keepalive.patch
+Patch16:        nodup-stderr.patch
+Patch17:        help-exit-failure.patch
+Patch18:        darwin-ipproto.patch
+Patch19:        select-nfds.patch
+Patch20:        proxy-doc.patch
+Patch30:        nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
+Patch31:        nc-1.10-LDFLAGS.patch
 Obsoletes:      nc
 Conflicts:      netcat < 1.0
 Provides:       netcat = 1.0
@@ -53,19 +63,31 @@ probably only be installed as 'nc', so keep this in mind when writing scripts.
 
 %prep
 %setup -q -c
-%patch0 -p1 -b .arm
-%patch1 -p1 -b .resolv
-%patch2 -p1 -b .posix_setjmp
-%patch3 -p1 -b .nopunt
-%patch4 -p1 -b .nosleep
-%patch5 -p1 -b .single_verbose
-%patch6 -p1 -b .use_getservbyport
-%patch7 -p1 -b .read_overflow
-%patch8 -p1 -b .inet_aton
-%patch9 -p1 -b .udp_broadcast
-%patch10 -p1 -b .quit
-%patch11 -p0 -b .format_not_a_string_literal_and_no_format_arguments
-%patch12 -p0 -b .LDFLAGS
+
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
+%patch16 -p1
+%patch17 -p1
+%patch18 -p1
+%patch19 -p1
+%patch20 -p1
+
+%patch30 -p0
+%patch31 -p0
 
 %build
 # Make linux ids supported, but it makes a static binary. 
@@ -74,12 +96,13 @@ probably only be installed as 'nc', so keep this in mind when writing scripts.
 
 %install
 %{__rm} -rf %{buildroot}
-%{__mkdir_p} %{buildroot}%{_bindir}
-%{__cp} -a %{real_name} %{buildroot}%{_bindir}
-(cd %{buildroot}%{_bindir} && %{__ln_s} %{real_name} netcat)
-%{__mkdir_p} %{buildroot}%{_mandir}/man1
-%{__cp} -a %{SOURCE1} %{buildroot}%{_mandir}/man1/nc.1
-(cd %{buildroot}%{_mandir}/man1 && %{__ln_s} %{real_name}.1 netcat.1)
+install -d -m 755 %{buildroot}%{_bindir}
+install -m 755 nc %{buildroot}%{_bindir}
+(cd %{buildroot}%{_bindir} && %{__ln_s} nc netcat)
+
+install -d -m 755 %{buildroot}%{_mandir}/man1
+install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1
+(cd %{buildroot}%{_mandir}/man1 && %{__ln_s} nc.1 netcat.1)
 
 %clean
 %{__rm} -rf %{buildroot}
