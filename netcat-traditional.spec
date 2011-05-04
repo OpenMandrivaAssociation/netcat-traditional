@@ -2,7 +2,7 @@
 
 Name:           netcat-traditional
 Version:        1.10
-Release:        %mkrel 35
+Release:        %mkrel 36
 Summary:        Reads and writes data across network connections using TCP or UDP
 License:        Public Domain
 Group:          Networking/Other
