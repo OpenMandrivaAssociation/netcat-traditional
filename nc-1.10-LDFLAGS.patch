@@ -1,0 +1,11 @@
+--- Makefile	1996-03-20 04:16:06.000000000 +0100
++++ Makefile.new	2010-07-17 11:01:25.000000000 +0200
+@@ -28,7 +28,7 @@
+ ### HARD TARGETS
+ 
+ nc:	netcat.c
+-	$(LD) $(DFLAGS) $(XFLAGS) $(STATIC) -o nc netcat.c $(XLIBS)
++	$(LD) $(LDFLAGS) $(DFLAGS) $(XFLAGS) $(STATIC) -o nc netcat.c $(XLIBS)
+ 
+ nc-dos:
+ 	@echo "DOS?!  Maybe someday, but not now"
