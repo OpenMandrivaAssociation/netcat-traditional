@@ -2,7 +2,7 @@
 
 Name:           netcat-traditional
 Version:        1.10
-Release:        %mkrel 36
+Release:        %mkrel 37
 Summary:        Reads and writes data across network connections using TCP or UDP
 License:        Public Domain
 Group:          Networking/Other
@@ -114,3 +114,69 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_bindir}/netcat
 %{_mandir}/man1/nc.1*
 %{_mandir}/man1/netcat.1*
+
+
+%changelog
+* Wed May 04 2011 Oden Eriksson <oeriksson@mandriva.com> 1.10-36mdv2011.0
++ Revision: 666609
+- mass rebuild
+
+* Sat Jul 17 2010 Guillaume Rousse <guillomovitch@mandriva.org> 1.10-35mdv2011.0
++ Revision: 554525
+- sync with debian patches set
+- fix URL (bug #59930)
+
+* Mon Mar 15 2010 Oden Eriksson <oeriksson@mandriva.com> 1.10-34mdv2010.1
++ Revision: 520189
+- rebuilt for 2010.1
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 1.10-33mdv2010.0
++ Revision: 426251
+- rebuild
+
+* Wed Jan 21 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.10-32mdv2009.1
++ Revision: 332125
+- provides a versionned netcat virtual package
+
+* Tue Jan 20 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.10-31mdv2009.1
++ Revision: 331766
+- add a conflict with old netcat package
+
+* Mon Jan 19 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.10-30mdv2009.1
++ Revision: 331437
+- package renaming
+- ship netcat binary
+- provides netcat virtual package
+- package renaming
+
+* Mon Dec 22 2008 Oden Eriksson <oeriksson@mandriva.com> 1.10-29mdv2009.1
++ Revision: 317477
+- fix build with -Werror=format-security (P11)
+- use %%ldflags (P12)
+
+* Tue Jun 17 2008 Thierry Vignaud <tv@mandriva.org> 1.10-28mdv2009.0
++ Revision: 223334
+- rebuild
+
+* Tue Jan 15 2008 Thierry Vignaud <tv@mandriva.org> 1.10-27mdv2008.1
++ Revision: 153277
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Thu Apr 19 2007 David Walluck <walluck@mandriva.org> 1.10-26mdv2008.0
++ Revision: 15163
+- bump release
+- license is not GPL (see README)
+- don't use %%{make} (jobserver unavailable)
+
+* Thu Apr 19 2007 David Walluck <walluck@mandriva.org> 1.10-24mdv2008.0
++ Revision: 15150
+- use only nc, not netcat
+
+* Thu Apr 19 2007 David Walluck <walluck@mandriva.org> 1.10-23mdv2008.0
++ Revision: 15149
+- better package compatibility with GNU netcat
+
