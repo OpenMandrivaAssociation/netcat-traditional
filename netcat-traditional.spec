@@ -3,7 +3,7 @@
 Summary:	Reads and writes data across network connections using TCP or UDP
 Name:		netcat-traditional
 Version:	1.10
-Release:	47
+Release:	48
 License:	Public Domain
 Group:		Networking/Other
 Url:		http://nc110.sourceforge.net/
