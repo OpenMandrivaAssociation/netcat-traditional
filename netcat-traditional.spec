@@ -6,7 +6,7 @@ Version:	1.12
 Release:	2
 License:	Public Domain
 Group:		Networking/Other
-Url:		http://nc110.sourceforge.net/
+Url:		https://nc110.sourceforge.net/
 Source0:	http://sourceforge.net/projects/nc110/files/unix%20netcat%201.10%20by%20_Hobbit_/%5BUnnamed%20release%5D/nc110.tgz
 Source1:	%{real_name}.1
 Patch0:		unstripped.patch
