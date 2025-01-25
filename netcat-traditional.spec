@@ -1,40 +1,27 @@
+%global optflags %{optflags} -std=gnu89 -Wno-int-conversion
 %define real_name nc
 
 Summary:	Reads and writes data across network connections using TCP or UDP
 Name:		netcat-traditional
-Version:	1.12
-Release:	2
+Version:	20180111
+Release:	1
 License:	Public Domain
 Group:		Networking/Other
 Url:		https://nc110.sourceforge.net/
-Source0:	http://sourceforge.net/projects/nc110/files/unix%20netcat%201.10%20by%20_Hobbit_/%5BUnnamed%20release%5D/nc110.tgz
+Source0:	http://sourceforge.net/projects/nc110/files/community%20releases/nc110.%{version}.tar.xz
 Source1:	%{real_name}.1
-Patch0:		unstripped.patch
-Patch1:		glibc-resolv-h.patch
-Patch2:		arm-timer.patch
-Patch3:		posix-setjmp.patch
-Patch4:		no-sleep-punt.patch
-Patch5:		single-verbose.patch
-Patch6:		use-getservbyport.patch
-Patch7:		read-overflow.patch
-Patch8:		inet-aton.patch     
-Patch9:		udp-broadcast.patch
-Patch10:	quit.patch
-Patch11:	dash-port.patch
-Patch12:	sh-c.patch
-Patch13:	tos.patch
-Patch14:	rservice-buf.patch      
-Patch15:	so-keepalive.patch
-Patch16:	nodup-stderr.patch
-Patch17:	help-exit-failure.patch
-Patch18:	darwin-ipproto.patch
-Patch19:	select-nfds.patch
-Patch20:	proxy-doc.patch
-Patch30:	nc-1.10-format_not_a_string_literal_and_no_format_arguments.diff
-Patch31:	nc-1.10-LDFLAGS.patch
 Provides:	netcat = 1.0
 Conflicts:	netcat-openbsd
 Conflicts:	netcat-gnu
+
+%patchlist
+posix-setjmp.patch
+single-verbose.patch
+tos.patch
+rservice-buf.patch      
+so-keepalive.patch
+select-nfds.patch
+proxy-doc.patch
 
 %description
 The nc package contains Netcat (the program is now netcat), a simple utility
@@ -59,31 +46,7 @@ canonical name is still 'nc'. If you use netcat on other systems, it will
 probably only be installed as 'nc', so keep this in mind when writing scripts.
 
 %prep
-%setup -q -c
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-
-%patch30 -p0
-%patch31 -p0
+%autosetup -p1 -n nc110
 
 %build
 # Make linux ids supported, but it makes a static binary. 
@@ -105,4 +68,3 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_bindir}/netcat
 %{_mandir}/man1/nc.1*
 %{_mandir}/man1/netcat.1*
-
