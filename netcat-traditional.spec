@@ -23,6 +23,7 @@ so-keepalive.patch
 select-nfds.patch
 proxy-doc.patch
 
+BuildRequires:	make
 %description
 The nc package contains Netcat (the program is now netcat), a simple utility
 for reading and writing data across network connections, using the TCP or UDP
